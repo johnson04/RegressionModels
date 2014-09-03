@@ -1,0 +1,23 @@
+\documentclass[a4paper,11pt]{article}
+\begin{document}
+
+<<TestData1,echo=FALSE>>=
+myData <- as.data.frame(cbind(xvar=1:10, yvar = 1:10))
+@
+
+<<TestPlot1,include=FALSE>>=
+plot(myData)
+@
+
+<<TestData2,echo=FALSE>>=
+myData <- as.data.frame(cbind(xvar=1:10, yvar = 10:1))
+@
+
+<<TestPlot2,include=FALSE>>=
+plot(myData)
+@
+<<APPTestPlot1,dependson='TestPlot1',ref.label="TestPlot1",fig.cap="figCap1",fig.caps="figCaps",fig.env="figure",fig.pos="htb",fig.width=6,fig.height=6,out.width="0.5\\textwidth",include=TRUE,echo=FALSE>>=
+@
+<<APPTestPlot2,dependson='TestPlot2',ref.label="TestPlot2",fig.cap="figCap2",fig.caps="figCap2s",fig.env="figure",fig.pos="htb",fig.width=6,fig.height=6,out.width="0.5\\textwidth",include=TRUE,echo=FALSE>>=
+@
+\end{document}
