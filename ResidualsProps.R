@@ -1,5 +1,3 @@
-setwd("C:/Users/Chuan/My Study/CourseRA/JHU7 - Regression Models/1 Lecture Notes and Inclass R Codes/Week 2")
-
 library(UsingR)
 data(diamond)
 y <- diamond$price
