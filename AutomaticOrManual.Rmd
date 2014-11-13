@@ -1,8 +1,5 @@
----
-title: "Automatic or Manual Transmissions - Which is Better?"
-author: "Chuan Zhang"
-output: pdf_document
----
+<h4>Automatic or Manual Transmissions - Which is Better?</h4>
+<h6>Chuan Zhang</h6>
 
 
 ## Executive Summary
