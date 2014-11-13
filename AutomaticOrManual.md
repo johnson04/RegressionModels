@@ -1,6 +1,5 @@
 # Automatic or Manual Transmissions - Which is Better?
 Chuan Zhang  
-Thursday, August 21, 2014  
 
 
 ## Executive Summary
