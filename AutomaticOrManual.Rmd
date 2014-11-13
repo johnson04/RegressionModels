@@ -2,13 +2,13 @@
 <h6>Chuan Zhang</h6>
 
 
-## Executive Summary
+### Executive Summary
 
 This report tries to clarify, automatic and manual transmissions, which one is better for MPG, by quantifying the MPG differences between the two transmissions. The data set <code>mtcars</code> is used for the regression modeling and analysis. This report is organized as follows. In the second section, an exploratory analysis of the data set is implemented. In the third section, several regression models are built based on the exploratory analysis in the second section. In the fourth section, we conclude the report by answering the question.
 
-## Exploratory Data Analysis
+### Exploratory Data Analysis
 
-### Preliminary Analysis
+#### Preliminary Analysis
 First, we check if the two types of cars in general are different in MPG or not.
 ```{r Preliminary Analysis}
 data(mtcars); aggregate(mtcars$mpg,list(mtcars$am),summary)
@@ -16,7 +16,7 @@ data(mtcars); aggregate(mtcars$mpg,list(mtcars$am),summary)
 
 From Figure 1, we can see that it seems the two types of cars are different, and the manual cars are better than automatic cars in terms of MPG. However, we could not conclude yet, as we did not consider any of the other features, which may bias the results. To clarify if our observation from this preliminary result is true or not, we first clarify which features are relevant.
 
-### Selecting Explanatory Variables
+#### Selecting Explanatory Variables
 First, we assume that the MPG variable depends on all variables, then the \textbf{variance inflation factor}, $VIF$, can be computed as follows
 
 ```{r VIF values}
@@ -45,29 +45,29 @@ rownames(pvalues) <- c('p-val'); pvalues
 ```
 The $p$-value result confirms our $VIF$ values analysis except that we need keep the variable $wt$ and remove $drat$. In next section, we compare the difference of cars in $mpg$ with different transmissions.
 
-## Data Analysis
+### Data Analysis
 
-### $mpg$ Difference in terms of $wt$
+#### $mpg$ Difference in terms of $wt$
 ```{r considering wt}
 wtFit <- lm(mpg ~ wt + am, data=cars); wtFit0<- lm(mpg ~ wt, data=cars)
 anova(wtFit,wtFit0)[2,6] # Pr(>F), i.e. p-value
 ```
 Clearly, in terms of $wt$, cars with different transmissions are not different in $mpg$. Figure 2 confirms our result here.
 
-### $mpg$ Difference in terms of $qsec$
+#### $mpg$ Difference in terms of $qsec$
 ```{r considering qsec}
 qsecFit <- lm(mpg ~ qsec + am, data=cars); qsecFit0<- lm(mpg ~ qsec, data=cars)
 anova(qsecFit,qsecFit0)[2,6] # Pr(>F), i.e. p-value
 ```
 Both the $p$-value and Figure 3 strongly suggested that cars with different transmissions are very different in $mpg$, in terms of $qsec$.
 
-### $mpg$ Difference in terms of $vs$
+#### $mpg$ Difference in terms of $vs$
 ```{r Considering vs}
-## Obtaining residuals
+### Obtaining residuals
 cars <- mtcars; resi_mpg <- resid(lm(mpg ~ qsec + am, data=cars))
 ncars <- as.data.frame(cbind(resi_mpg,cars$vs,cars$am))
 colnames(ncars) <- c('mpg','vs','am')
-## Hypothesis Test
+### Hypothesis Test
 autoMean <- aggregate(ncars[ncars$am==0,]$mpg,list(ncars[ncars$am==0,]$vs),mean)[,2]
 autoSd <- aggregate(ncars[ncars$am==0,]$mpg,list(ncars[ncars$am==0,]$vs),sd)[,2]
 nav <- length(ncars[(ncars$am==0) & (ncars$vs==0),]$mpg)
@@ -83,11 +83,11 @@ colnames(pval) <- c('vs=0','Vs=1'); rownames(pval) <- c('p-val'); pval
 ```
 Both the $p$-values and Figure 4 suggest that cars with different transmissions are not very different in $mpg$, in terms of $vs$.
 
-## Conclusion
+### Conclusion
 Based on our regression modeling and hypothesis test results, we conclude that cars with different transmissions are different in $mpg$, and manual cars are better than automatic cars. In addition, we analysis indicates that the difference mainly due to $qsec$ (1/4 mile time).
 
 
-## Appendix: Figures and Legends
+### Appendix: Figures and Legends
 ```{r Figure1, fig.height=3, fig.width=3}
 boxplot(mpg ~ am, data=mtcars,outline=TRUE,xlab = "Transmissions",ylab = "MPG")
 ```
